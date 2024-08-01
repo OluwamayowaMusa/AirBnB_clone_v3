@@ -14,7 +14,6 @@ from models.user import User
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
-from sqlalchemy import func
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 classes = {"Amenity": Amenity, "City": City,
@@ -81,7 +80,7 @@ class DBStorage:
         count = 0
         for clss in classes:
             if cls is None or cls is classes[clss] or cls is clss:
-                count += self.__session.query(func.count(classes[clss]))
+                count += self.__session.query(classes[clss]).count()
 
         return count
 
