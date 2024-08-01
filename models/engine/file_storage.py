@@ -74,7 +74,7 @@ class FileStorage:
         if cls is not None:
             count = 0
             for value in self.__objects.values():
-                if equal_class(cls, value):
+                if self.equal_class(cls, value):
                     count += 1
             return count
         return len(self.__objects)
@@ -82,7 +82,7 @@ class FileStorage:
     def get(self, cls, id):
         """Retrieve object of <cls> with <id>"""
         for value in self.__objects.values():
-            if equal_class(cls, value):
+            if self.equal_class(cls, value):
                 if id == value.id:
                     return value
         return None
