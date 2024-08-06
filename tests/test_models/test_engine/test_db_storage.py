@@ -114,6 +114,8 @@ class TestFileStorage(unittest.TestCase):
             if key == "User":
                 instance = value(name=key+'A', email=key+'email',
                                  password=key+'12')
+            elif key == "City":
+                instance = value(name=key+'A', state_id='StateA')
             else:
                 instance = value(name=key+'A')
 
