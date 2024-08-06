@@ -91,8 +91,8 @@ class TestFileStorage(unittest.TestCase):
     def test_count(self):
         """Test that count of objects that belong to a class"""
         storage = models.storage
-        for value in classes.values():
-            instance = value()
+        for key, value in classes.items():
+            instance = value(name=key + 'A')
             storage.new(instance)
 
         for value in classes.values():
@@ -105,8 +105,8 @@ class TestFileStorage(unittest.TestCase):
         """Test the object is retrieved by id """
         storage = models.storage
         ids = []
-        for value in classes.values():
-            instance = value()
+        for key, value in classes.items():
+            instance = value(name=key + 'A')
             ids.append(instance.id)
             storage.new(instance)
 
