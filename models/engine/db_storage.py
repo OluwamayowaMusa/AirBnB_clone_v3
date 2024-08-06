@@ -87,7 +87,7 @@ class DBStorage:
     def get(self, cls, id):
         """Retrieve object of <cls> with <id>"""
         if cls is not None:
-            result = self.__session.query(cls).filter(cls.id == id).all()
-            return result.pop()
+            obj = self.__session.query(cls).filter(cls.id == id).first()
+            return obj
 
         return None
