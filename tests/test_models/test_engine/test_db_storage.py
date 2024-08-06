@@ -95,7 +95,7 @@ class TestFileStorage(unittest.TestCase):
             if key == "User":
                 instance = value(name=key+'A', email=key+'email',
                                  password=key+'12')
-            elif key != "City":
+            elif key not in ["City", "Place", "Review"]:
                 instance = value(name=key+'A')
 
             storage.new(instance)
@@ -114,7 +114,7 @@ class TestFileStorage(unittest.TestCase):
             if key == "User":
                 instance = value(name=key+'A', email=key+'email',
                                  password=key+'12')
-            elif key != "City":
+            elif key not in ["City", "Place", "Review"]:
                 instance = value(name=key+'A')
 
             ids.append(instance.id)
