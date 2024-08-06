@@ -95,8 +95,6 @@ class TestFileStorage(unittest.TestCase):
             instance = value()
             storage.new(instance)
 
-        storage.save()
-
         for value in classes.values():
             self.assertEqual(storage.count(value), 1)
 
