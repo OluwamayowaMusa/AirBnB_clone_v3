@@ -98,7 +98,8 @@ class TestFileStorage(unittest.TestCase):
             elif key not in ["City", "Place", "Review"]:
                 instance = value(name=key+'A')
 
-            storage.new(instance)
+            if key not in ["City", "Place", "Review"]:
+                storage.new(instance)
 
         for value in classes.values():
             self.assertEqual(storage.count(value), 1)
@@ -117,8 +118,9 @@ class TestFileStorage(unittest.TestCase):
             elif key not in ["City", "Place", "Review"]:
                 instance = value(name=key+'A')
 
-            ids.append(instance.id)
-            storage.new(instance)
+            if key not in ["City", "Place", "Review"]:
+                ids.append(instance.id)
+                storage.new(instance)
 
         for cls, id in zip(classes.values(), ids):
             self.assertIsNotNone(storage.get(cls, id))
