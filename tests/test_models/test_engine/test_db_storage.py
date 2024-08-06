@@ -101,10 +101,11 @@ class TestFileStorage(unittest.TestCase):
             if key not in ["City", "Place", "Review"]:
                 storage.new(instance)
 
-        for value in classes.values():
-            self.assertEqual(storage.count(value), 1)
+        for key, value in classes.items():
+            if key not in ["City", "Place", "Review"]:
+                self.assertEqual(storage.count(value), 1)
 
-        self.assertEqual(storage.count(), len(classes))
+        self.assertEqual(storage.count(), len(classes) - 3)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing file storage")
     def test_get(self):
@@ -122,5 +123,6 @@ class TestFileStorage(unittest.TestCase):
                 ids.append(instance.id)
                 storage.new(instance)
 
-        for cls, id in zip(classes.values(), ids):
-            self.assertIsNotNone(storage.get(cls, id))
+        for (key, cls), id in zip(classes.items(), ids):
+            if key not in ["City", "Place", "Review"]:
+                self.assertIsNotNone(storage.get(cls, id))
