@@ -90,7 +90,39 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_count(self):
         """Test that count of objects that belong to a class"""
+        storage = models.storage
+        for key, value in classes.items():
+            if key == "User":
+                instance = value(name=key+'A', email=key+'email',
+                                 password=key+'12')
+            elif key not in ["City", "Place", "Review"]:
+                instance = value(name=key+'A')
 
-    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+            if key not in ["City", "Place", "Review"]:
+                storage.new(instance)
+
+        for key, value in classes.items():
+            if key not in ["City", "Place", "Review"]:
+                self.assertEqual(storage.count(value), 1)
+
+        self.assertEqual(storage.count(), len(classes) - 3)
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing file storage")
     def test_get(self):
         """Test the object is retrieved by id """
+        storage = models.storage
+        ids = []
+        for key, value in classes.items():
+            if key == "User":
+                instance = value(name=key+'A', email=key+'email',
+                                 password=key+'12')
+            elif key not in ["City", "Place", "Review"]:
+                instance = value(name=key+'A')
+
+            if key not in ["City", "Place", "Review"]:
+                ids.append(instance.id)
+                storage.new(instance)
+
+        for (key, cls), id in zip(classes.items(), ids):
+            if key not in ["City", "Place", "Review"]:
+                self.assertIsNotNone(storage.get(cls, id))
