@@ -88,6 +88,7 @@ class DBStorage:
         """Retrieve object of <cls> with <id>"""
         if cls is not None:
             obj = self.__session.query(cls).filter(cls.id == id)
+            print(obj)
             return obj
 
         return None
