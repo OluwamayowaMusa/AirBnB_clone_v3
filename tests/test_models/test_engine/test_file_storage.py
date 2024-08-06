@@ -139,5 +139,5 @@ class TestFileStorage(unittest.TestCase):
             ids.append(instance.id)
             storage.new(instance)
 
-        for cls, id in enumerate(classes.values(), ids):
+        for cls, id in zip(classes.values(), ids):
             self.assertIsNotNone(storage.get(cls, id))
