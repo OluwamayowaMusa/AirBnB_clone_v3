@@ -123,6 +123,13 @@ class TestFileStorage(unittest.TestCase):
                 ids.append(instance.id)
                 storage.new(instance)
 
-        for (key, cls), id in zip(classes.items(), ids):
+        clss = list(classes.keys())
+        values = []
+        clss.remove("City")
+        clss.remove("Place")
+        clss.remove("Review")
+        for cls in clss:
+            values.append(classes[cls])
+        for key, cls, id in zip(clss, values, ids):
             if key not in ["City", "Place", "Review"]:
                 self.assertIsNotNone(storage.get(cls, id))
